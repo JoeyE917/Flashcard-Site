@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import FlashcardList from './FlashcardList';
+import Quiz from './Quiz'
 import './app.css';
 import axios from 'axios';
+import { button, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [flashcards, setFlashcards] = useState([])
-  const [categories, setCategories] = useState([])
+  const [flashcards, setFlashcards] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [quizMode, setQuizMode] = useState(false);
 
   const categoryEl = useRef();
   const amountEl = useRef();
@@ -28,6 +32,18 @@ function App() {
 
   function handleSubmit(e){
     e.preventDefault();
+    genFlashcards();
+    setQuizMode(false);
+  }
+
+  function handleAlternate(e) {
+    e.preventDefault();
+    genFlashcards();
+    setQuizMode(true);
+  }
+
+
+  function genFlashcards(){
     axios.get('https://opentdb.com/api.php?amount=10', {
       params: {
         amount: amountEl.current.value,
@@ -50,6 +66,17 @@ function App() {
 
   return (
     <>
+        <Navbar>
+          <Navbar.Brand href="#home">Flashcards</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#link">Link</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+
       <form className="header" onSubmit={handleSubmit}>
         <div className = "form-group">
           <label htmlFor="category">Category</label>
@@ -66,13 +93,22 @@ function App() {
         </div>
 
         <div className = "form-group">
-          <button className="btn">Generate</button>
+          <button type="submit" className="generate-button">Generate</button>
         </div>
-
+        <div className = "form-group">
+          <button onClick={handleAlternate} className="quiz-button">Quiz</button>
+        </div>
       </form>
+      {quizMode
+      ?
       <div className="container">
-        <FlashcardList flashcards={flashcards} />
+        <Quiz flashcards={flashcards} />
       </div>
+      :
+        <div className="container">
+          <FlashcardList flashcards={flashcards} />
+        </div>
+      }
     </>
   );
 }
