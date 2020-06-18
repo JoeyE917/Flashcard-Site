@@ -110,3 +110,24 @@ body {
 .flashcard-option:first-child{
     margin-top: 0;
 }
+
+.question{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.quiz-options{
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    gap: 1rem;
+    text-align: center;
+}
+
+.quiz-option{
+    height: 10rem;
+}
+.quiz-option#q0{
+    background-color: blue;
+}

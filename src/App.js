@@ -93,7 +93,7 @@ function App() {
         </div>
 
         <div className = "form-group">
-          <button type="submit" className="generate-button">Generate</button>
+          <button type="submit" className="generate-button">Flashcards</button>
         </div>
         <div className = "form-group">
           <button onClick={handleAlternate} className="quiz-button">Quiz</button>

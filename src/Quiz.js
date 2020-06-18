@@ -7,8 +7,13 @@ export default function FlashcardList({ flashcards }){
         return null;
     }
     return(
-        <div className="card-grid">
-            <Flashcard flashcard={currCard} key={currCard.id} />
+        <div>
+            <div className="question">{currCard.question}</div>
+            <div className="quiz-options">
+                {currCard.options.map((option, index)=>{
+                            return <div id={"q" + index} className="quiz-option" key={option}>{option}</div>
+                })}
+            </div>
         </div>
     )
 }
