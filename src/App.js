@@ -10,7 +10,7 @@ function App() {
   const [flashcards, setFlashcards] = useState([]);
   const [categories, setCategories] = useState([]);
   const [quizMode, setQuizMode] = useState(false);
-
+	// test
   const categoryEl = useRef();
   const amountEl = useRef();
 
