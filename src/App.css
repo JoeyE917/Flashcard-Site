@@ -127,7 +127,24 @@ body {
 
 .quiz-option{
     height: 10rem;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
 }
 .quiz-option#q0{
+    background-color: red;
+}
+.quiz-option#q1{
     background-color: blue;
+}
+.quiz-option#q2{
+    background-color: orange;
+}
+.quiz-option#q3{
+    background-color: green;
+}
+.quiz-option > p{
+    margin-left: auto;
+    margin-right: auto;
 }
