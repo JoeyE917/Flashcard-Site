@@ -66,17 +66,6 @@ function App() {
 
   return (
     <>
-        <Navbar>
-          <Navbar.Brand href="#home">Flashcards</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-
       <form className="header" onSubmit={handleSubmit}>
         <div className = "form-group">
           <label htmlFor="category">Category</label>

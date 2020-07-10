@@ -7,12 +7,14 @@ export default function FlashcardList({ flashcards }){
     const [numAnswered, setNumAnswered] = useState(0);
     const questionEl = useRef();
 
-    //setFlashcard(queue.shift());
-
     if(flashcard == null){
         return null;
     }
     var correctAnswer = flashcard.options.indexOf(flashcard.answer);
+
+    if(numAnswered >= flashcards.length){
+        return <div class="postgame">You got {numCorrect} out of {numAnswered} correct!</div>
+    }
     return(
         <div>
             <div className="question">{flashcard.question}</div>
@@ -27,12 +29,8 @@ export default function FlashcardList({ flashcards }){
     function checkAnswer(index){
         if(index == correctAnswer){
             setNumCorrect(numCorrect + 1);
-            //queue.push(flashcard);
         }
         setNumAnswered(numAnswered + 1);
-        if(numAnswered >= flashcards.length){
-            console.log("Out of questions! You got " + numCorrect + " out of " + numAnswered + " correct.");
-        }
         setFlashcard(flashcards[numAnswered]);
     }
     
