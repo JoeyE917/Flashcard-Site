@@ -41,9 +41,6 @@ function App() {
           <Route exact path ="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-          <Switch>
-            <PrivateRoute exact path="/dashboard" component= {Dashboard} />
-          </Switch>
         </Router>
       </Provider>
     </>

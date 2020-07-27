@@ -1,4 +1,7 @@
-import React from "react";
+// This doesn't currently work and is probably not needed. Commenting out for now just in case.
+
+
+/*import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -24,4 +27,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps)(PrivateRoute);
+export default connect(mapStateToProps)(PrivateRoute);*/

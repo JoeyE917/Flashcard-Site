@@ -3,6 +3,7 @@ import FlashcardList from './FlashcardList';
 import Quiz from './Quiz'
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import Navbar from './Navbar';
 
 
 function Landing() {
@@ -13,12 +14,13 @@ function Landing() {
     const categoryEl = useRef();
     const amountEl = useRef();
   
+    /*
     useEffect(() => {
       axios.get('https://opentdb.com/api_category.php').then(res => {
         setCategories(res.data.trivia_categories);
       })
     }, [])
-  
+    */
     function sanitizeString(str){
       const textArea = document.createElement('textarea');
       textArea.innerHTML = str;
@@ -61,34 +63,7 @@ function Landing() {
   
     return (
       <>
-        <div>
-            <div className="col s6">
-            <Link
-                to="/register"
-                style={{
-                width: "140px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px"
-                }}
-                className="btn btn-large"
-            >
-                Register
-            </Link>
-            </div>
-            <div className="col s6">
-            <Link
-                to="/login"
-                style={{
-                width: "140px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px"
-                }}
-                className="btn btn-large"
-            >
-                Log In
-            </Link>
-            </div>
-        </div>
+        <Navbar></Navbar>
         <form className="header" onSubmit={handleSubmit}>
         <div className = "form-group">
         <label htmlFor="category">Category</label>
