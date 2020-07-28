@@ -152,3 +152,8 @@ body {
 .postgame{
     text-align: center;
 }
+
+.red-text{
+    color: red;
+    margin-left: 10px;
+}

@@ -13,6 +13,10 @@ function Landing() {
   
     const categoryEl = useRef();
     const amountEl = useRef();
+    
+    
+
+    
   
     /*
     useEffect(() => {
