@@ -23,7 +23,6 @@ if(localStorage.jwtToken){
   // Decode token and set user
   const decoded = jwt_decode(token);
   store.dispatch(setCurrentUser(decoded));
-
   let currTime = Date.now() / 1000;
   if(decoded.exp < currTime){
     store.dispatch(logoutUser());

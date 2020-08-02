@@ -4,27 +4,27 @@ import Quiz from './Quiz'
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import Navbar from './Navbar';
+import store from '../store';
 
 
-function Landing() {
+function Landing(props) {
     const [flashcards, setFlashcards] = useState([]);
     const [categories, setCategories] = useState([]);
     const [quizMode, setQuizMode] = useState(false);
   
     const categoryEl = useRef();
-    const amountEl = useRef();
-    
-    
+    const amountEl = useRef(); 
 
-    
-  
-    /*
     useEffect(() => {
+      let token = axios.defaults.headers.common["Authorization"];
+      delete axios.defaults.headers.common["Authorization"];
       axios.get('https://opentdb.com/api_category.php').then(res => {
         setCategories(res.data.trivia_categories);
       })
+      axios.defaults.headers.common["Authorization"] = token;
     }, [])
-    */
+    
+    
     function sanitizeString(str){
       const textArea = document.createElement('textarea');
       textArea.innerHTML = str;
@@ -45,6 +45,10 @@ function Landing() {
   
   
     function genFlashcards(){
+      // Store the authorization header that axios is currently using
+      let token = axios.defaults.headers.common["Authorization"];
+      // Delete the authorization header to allow the API call to opentdb
+      delete axios.defaults.headers.common["Authorization"];
       axios.get('https://opentdb.com/api.php?amount=10', {
         params: {
           amount: amountEl.current.value,
@@ -63,6 +67,8 @@ function Landing() {
           }
         }))
       })
+      // Re add authorization token
+      axios.defaults.headers.common["Authorization"] = token;
     }
   
     return (
@@ -92,7 +98,7 @@ function Landing() {
         {quizMode
         ?
         <div className="container">
-            <Quiz flashcards={flashcards} />
+            <Quiz flashcards={flashcards} props={props}/>
         </div>
         :
             <div className="container">

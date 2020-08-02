@@ -13,6 +13,7 @@ class Navbar extends Component {
   }
 
   userName = store.getState().auth.user.name;
+  
 
   render() {
     return (

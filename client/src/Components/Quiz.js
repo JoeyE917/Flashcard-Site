@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Flashcard from './Flashcard';
+import { updateScore } from '../actions/flashcardActions';
+import store from "../store";
 
-export default function FlashcardList({ flashcards }){
+export default function FlashcardList({ flashcards, props }){
     const [flashcard, setFlashcard] = useState(flashcards[0]);
     const [numCorrect, setNumCorrect] = useState(0);
     const [numAnswered, setNumAnswered] = useState(0);
-    const questionEl = useRef();
 
     if(flashcard == null){
         return null;
     }
     var correctAnswer = flashcard.options.indexOf(flashcard.answer);
+    var category = flashcard.category;
 
     if(numAnswered >= flashcards.length){
-        return <div class="postgame">You got {numCorrect} out of {numAnswered} correct!</div>
+        let user = store.getState().auth.user.email;
+        updateScore({user, data: {correct: numCorrect, answered: numAnswered, category: category}});
+        return <div className="postgame">You got {numCorrect} out of {numAnswered} correct!</div>
     }
     return(
         <div>
@@ -33,5 +37,6 @@ export default function FlashcardList({ flashcards }){
         setNumAnswered(numAnswered + 1);
         setFlashcard(flashcards[numAnswered]);
     }
+
     
 }

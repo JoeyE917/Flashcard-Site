@@ -90,4 +90,28 @@ router.post("/login", (req, res) => {
     });
 });
 
+router.post("/updateScore", (req, res) => {
+    let email = req.body.email;
+    let data = req.body.data;
+    let category = data.category;
+
+    User.findOne({ email }).then(user => {
+        if(!user){
+            return res.status(404).json({ emailnotfound: "Email not found"});
+        }
+
+        if(user.questionsAnswered[category]){
+            user.questionsAnswered[category].answered += data.answered;
+            user.questionsAnswered[category].correct += data.correct;
+        } else{
+            user.questionsAnswered[category] = {};
+            user.questionsAnswered[category].answered = data.answered;
+            user.questionsAnswered[category].correct = data.correct;
+        }
+
+        user.save().then(user => res.json(user)).catch(err => console.log(err));
+    })
+
+})
+
 module.exports = router;
