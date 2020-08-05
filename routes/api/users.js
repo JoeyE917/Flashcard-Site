@@ -90,28 +90,43 @@ router.post("/login", (req, res) => {
     });
 });
 
+// Update users score
 router.post("/updateScore", (req, res) => {
+    console.log("test");
     let email = req.body.email;
-    let data = req.body.data;
-    let category = data.category;
+    let answered = parseInt(req.body.answered);
+    let correct = parseInt(req.body.correct);
+    let category = req.body.category;
 
+    console.log("Updating score for " + email + " with data: answered = " + answered + " correct = " + correct + " in category " + category);
     User.findOne({ email }).then(user => {
         if(!user){
             return res.status(404).json({ emailnotfound: "Email not found"});
         }
-
-        if(user.questionsAnswered[category]){
-            user.questionsAnswered[category].answered += data.answered;
-            user.questionsAnswered[category].correct += data.correct;
+        if(!user.questionsAnswered){
+            user.questionsAnswered = {};
+        }
+        if(user.questionsAnswered[category] != undefined){
+            user.questionsAnswered[category].answered += answered;
+            user.questionsAnswered[category].correct += correct;
         } else{
             user.questionsAnswered[category] = {};
-            user.questionsAnswered[category].answered = data.answered;
-            user.questionsAnswered[category].correct = data.correct;
+            user.questionsAnswered[category].answered = answered;
+            user.questionsAnswered[category].correct = correct;
         }
-
+        user.markModified('questionsAnswered');
         user.save().then(user => res.json(user)).catch(err => console.log(err));
     })
 
+})
+
+// Clear scores (Probably only going to be used for testing)
+router.post("/removeScores", (req, res) => {
+    let email = req.body.email;
+    User.findOne({ email }).then(user => {
+        user.questionsAnswered = {};
+        user.save().then(user => res.json(user)).catch(err => console.log(err));
+    })
 })
 
 module.exports = router;

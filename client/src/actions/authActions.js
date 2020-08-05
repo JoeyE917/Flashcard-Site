@@ -47,9 +47,6 @@ export const setCurrentUser = decoded => {
     };
 };
 
-export const consoleLog = () => {
-    console.log("Clicked");
-}
 
 export const setUserLoading = () =>{
     return {

@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef, Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import FlashcardList from './FlashcardList';
 import Quiz from './Quiz'
-import { Link } from "react-router-dom";
 import axios from 'axios';
 import Navbar from './Navbar';
 import store from '../store';
@@ -97,13 +96,13 @@ function Landing(props) {
         </form>
         {quizMode
         ?
-        <div className="container">
-            <Quiz flashcards={flashcards} props={props}/>
-        </div>
+          <div className="container">
+            <Quiz flashcard={flashcards}/>
+          </div>
         :
-            <div className="container">
+          <div className="container">
             <FlashcardList flashcards={flashcards} />
-            </div>
+          </div>
         }
       </>
     );
