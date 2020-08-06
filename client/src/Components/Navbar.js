@@ -19,49 +19,63 @@ class Navbar extends Component {
     return (
       <div>
         {localStorage.jwtToken ? 
-          <p>Logged in as {this.userName}</p>
+          <>
+            <p>Logged in as {this.userName}</p>
+            <div className="col s6" style={{paddingLeft: "0px"}}>
+              <Link
+                  to="/stats"
+                  style={{
+                    width: "150px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px"
+                  }}
+                  className="btn btn-large"
+              >
+                Stats
+              </Link>
+            </div>
+            <button
+              style={{
+                  width: "150px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px"
+              }}
+              onClick={this.onLogoutClick}
+              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+              >
+              Logout
+            </button>
+          </>
           :
           <>
-          <div className="col s6">
-          <Link
-              to="/register"
-              style={{
-              width: "140px",
-              borderRadius: "3px",
-              letterSpacing: "1.5px"
-              }}
-              className="btn btn-large"
-          >
-              Register
-          </Link>
-          </div>
-          <div className="col s6">
-          <Link
-              to="/login"
-              style={{
-              width: "140px",
-              borderRadius: "3px",
-              letterSpacing: "1.5px"
-              }}
-              className="btn btn-large"
-          >
-              Log In
-          </Link>
-          </div>
-        </>
+            <div className="col s6">
+              <Link
+                  to="/register"
+                  style={{
+                    width: "140px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px"
+                  }}
+                  className="btn btn-large"
+              >
+                Register
+              </Link>
+            </div>
+            <div className="col s6">
+              <Link
+                  to="/login"
+                  style={{
+                    width: "140px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px"
+                  }}
+                  className="btn btn-large"
+              >
+                Log In
+              </Link>
+            </div>
+          </>
         }
-        <button
-          style={{
-              width: "150px",
-              borderRadius: "3px",
-              letterSpacing: "1.5px",
-              marginTop: "1rem"
-          }}
-          onClick={this.onLogoutClick}
-          className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-          >
-          Logout
-        </button>
       </div>
     );
   }

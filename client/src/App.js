@@ -12,6 +12,7 @@ import store from "./store";
 import Landing from "./Components/Landing";
 import Register from "./Components/auth/Register";
 import Login from "./Components/auth/Login";
+import Stats from "./Components/Stats"
 
 if(localStorage.jwtToken){
   const token = localStorage.jwtToken;
@@ -37,6 +38,7 @@ function App() {
           <Route exact path ="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/stats" component={Stats} />
         </Router>
       </Provider>
     </>

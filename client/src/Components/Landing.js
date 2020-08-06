@@ -62,7 +62,8 @@ function Landing(props) {
             id: `${index}-${Date.now()}`,
             question: sanitizeString(questionItem.question),
             answer: answer,
-            options: options.sort(() => Math.random() - .5)
+            options: options.sort(() => Math.random() - .5),
+            category: questionItem.category
           }
         }))
       })

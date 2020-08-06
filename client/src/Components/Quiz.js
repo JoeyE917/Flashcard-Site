@@ -3,6 +3,7 @@ import { updateScore } from '../actions/flashcardActions';
 import PropTypes from "prop-types";
 import store from "../store";
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class Quiz extends Component{
 //function FlashcardList({ flashcards }){
@@ -12,6 +13,9 @@ class Quiz extends Component{
         this.numCorrect = 0;
         this.numAnswered = 0;
         this.state = {flashcard: this.flashcards[0], errors: {}};
+        if(this.state.flashcard != null){
+            this.category = this.state.flashcard.category;
+        }
     }
     setFlashcard(card){
         this.setState({
@@ -22,14 +26,15 @@ class Quiz extends Component{
 
     render(){
         if(this.numAnswered >= this.flashcards.length){
-            console.log(this.numAnswered + " out of " + this.flashcards.length);
-            let user = store.getState().auth.user.email;
-            this.props.updateScore({user, correct: this.numCorrect, answered: this.numAnswered, category: this.category});
+            let id = store.getState().auth.user.id;
+            let token = axios.defaults.headers.common["Authorization"];
+            delete axios.defaults.headers.common["Authorization"];
+            this.props.updateScore({id, correct: this.numCorrect, answered: this.numAnswered, category: this.category});
+            axios.defaults.headers.common["Authorization"] = token;
             return <div className="postgame">You got {this.numCorrect} out of {this.numAnswered} correct!</div>
         }
         this.correctAnswer = this.state.flashcard.options.indexOf(this.state.flashcard.answer);
-        var category = this.state.flashcard.category;
-        
+
         return(
             <div>
                 <div className="question">{this.state.flashcard.question}</div>

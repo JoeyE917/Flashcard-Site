@@ -92,16 +92,14 @@ router.post("/login", (req, res) => {
 
 // Update users score
 router.post("/updateScore", (req, res) => {
-    console.log("test");
-    let email = req.body.email;
+    let id = req.body.id;
     let answered = parseInt(req.body.answered);
     let correct = parseInt(req.body.correct);
     let category = req.body.category;
 
-    console.log("Updating score for " + email + " with data: answered = " + answered + " correct = " + correct + " in category " + category);
-    User.findOne({ email }).then(user => {
+    User.findOne({ _id: id }).then(user => {
         if(!user){
-            return res.status(404).json({ emailnotfound: "Email not found"});
+            return res.status(404).json({ emailnotfound: "User not found"});
         }
         if(!user.questionsAnswered){
             user.questionsAnswered = {};
@@ -126,6 +124,20 @@ router.post("/removeScores", (req, res) => {
     User.findOne({ email }).then(user => {
         user.questionsAnswered = {};
         user.save().then(user => res.json(user)).catch(err => console.log(err));
+    })
+})
+
+router.get("/getScores", (req, res) => {
+    let id = req.body.id;
+    User.findOne({ _id: id }).then(user => {
+        if(!user){
+            return res.status(404).json({ emailnotfound: "User not found"});
+        }
+        if(!user.questionsAnswered){
+            res.json({});
+        }
+        console.log("Sending back " + JSON.stringify(user.questionsAnswered));
+        res.json(user.questionsAnswered);
     })
 })
 
