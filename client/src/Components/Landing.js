@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 import store from '../store';
 
 
-function Landing(props) {
+function Landing() {
     const [flashcards, setFlashcards] = useState([]);
     const [categories, setCategories] = useState([]);
     const [quizMode, setQuizMode] = useState(false);

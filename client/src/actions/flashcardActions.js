@@ -14,16 +14,13 @@ export const updateScore = data => dispatch => {
     );
 }
 
-export const getScores = data => dispatch => {
+export const getScores = data => {
+    console.log(data);
     axios
-    .post(proxy + "/api/users/getScores", data)
+    .get(proxy + "/api/users/getScores", { params: {
+        id: data.id
+    }})
     .then(res => {
-      dispatch(res);  
+      return(res);
     })
-    .catch(err => 
-        dispatch({
-            type: GET_ERRORS,
-            payload: err
-        })
-    );
 }

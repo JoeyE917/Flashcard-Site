@@ -128,7 +128,7 @@ router.post("/removeScores", (req, res) => {
 })
 
 router.get("/getScores", (req, res) => {
-    let id = req.body.id;
+    let id = req.query.id
     User.findOne({ _id: id }).then(user => {
         if(!user){
             return res.status(404).json({ emailnotfound: "User not found"});
@@ -136,7 +136,6 @@ router.get("/getScores", (req, res) => {
         if(!user.questionsAnswered){
             res.json({});
         }
-        console.log("Sending back " + JSON.stringify(user.questionsAnswered));
         res.json(user.questionsAnswered);
     })
 })
