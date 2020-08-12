@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import store from "../store";
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { render } from '@testing-library/react';
 import Navbar from './Navbar';
 
 class Stats extends Component{
@@ -38,9 +37,23 @@ class Stats extends Component{
         return(
             <>
                 <Navbar></Navbar>
-                <div>{Object.keys(this.state.stats).map(stat => {
-                    return <div>{stat}: {this.state.stats[stat].correct} / {this.state.stats[stat].answered}</div>
-                    })}
+                <div className="container">
+                    <div className="stats">{Object.keys(this.state.stats).map(stat => {
+                            let percent = this.state.stats[stat].correct / this.state.stats[stat].answered * 100;
+                            return(
+                                <div className="stat-card">
+                                    <span className="category">{stat}:</span><br/>
+                                    <div className="correct-answered">
+                                        {this.state.stats[stat].correct} correct <br/>
+                                        {this.state.stats[stat].answered} answered
+                                    </div>
+                                    <div className="correct-percent" style={{color: percent >= 75 ? "green" : percent >= 45 ? "orange" : "red"}}>
+                                        {percent}%
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
                 
 

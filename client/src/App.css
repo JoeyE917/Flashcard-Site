@@ -157,3 +157,36 @@ body {
     color: red;
     margin-left: 10px;
 }
+
+.nav-bar{
+    border-bottom: 1px solid gray;
+}
+
+.stats{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card{
+    height: 150px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
+    text-align: center;
+}
+
+.category{
+    font-weight: bold;
+}
+
+.correct-answered{
+    float: left;
+    margin-top: 30.5px;
+    margin-left: 25px;
+}
+
+.correct-percent{
+    float: right;
+    margin-top: 25px;
+    margin-right: 40px;
+    font-size: 28pt;
+}

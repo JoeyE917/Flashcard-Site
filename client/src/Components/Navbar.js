@@ -17,11 +17,22 @@ class Navbar extends Component {
 
   render() {
     return (
-      <div>
+      <div className="nav-bar">
         {localStorage.jwtToken ? 
           <>
             <p>Logged in as {this.userName}</p>
             <div className="col s6" style={{paddingLeft: "0px"}}>
+            <Link
+                  to="/"
+                  style={{
+                    width: "150px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px"
+                  }}
+                  className="btn btn-large"
+              >
+                Home
+              </Link>
               <Link
                   to="/stats"
                   style={{
@@ -41,7 +52,7 @@ class Navbar extends Component {
                   letterSpacing: "1.5px"
               }}
               onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+              className="btn btn-outline-danger"
               >
               Logout
             </button>
