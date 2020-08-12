@@ -14,8 +14,10 @@ class Stats extends Component{
 
     componentDidMount(){
         let id = store.getState().auth.user.id;
+        // Remove authorization token to avoid CORS issue
         let token = axios.defaults.headers.common["Authorization"];
         delete axios.defaults.headers.common["Authorization"];
+        // Get stats for user from database and save data in state
         axios
         .get("http://localhost:5000/api/users/getScores", { params: {
             id: id
@@ -23,6 +25,7 @@ class Stats extends Component{
         .then(res => {
             this.setState({ stats: res.data });
         })
+        // Re add authorization token once API call finishes
         axios.defaults.headers.common["Authorization"] = token;
     }
 
@@ -31,9 +34,12 @@ class Stats extends Component{
     
     
     render() {
+        // Return empty div if no stats for the user were found.
         if(!this.state.stats){
             return <div></div>
         }
+        // Loop through each category the user has stats for, and display a "card" showing the number of
+        // questions the user has answered and gotten correct in that category, and show the percent correct
         return(
             <>
                 <Navbar></Navbar>

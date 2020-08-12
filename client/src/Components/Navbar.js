@@ -7,6 +7,7 @@ import store from "../store";
 
 
 class Navbar extends Component {
+  // If user clicks logout button, send request to server to logout the user
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();

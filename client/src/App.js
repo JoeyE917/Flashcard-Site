@@ -22,6 +22,7 @@ if(localStorage.jwtToken){
   const decoded = jwt_decode(token);
   store.dispatch(setCurrentUser(decoded));
   let currTime = Date.now() / 1000;
+  // If login time has expired, logout the user and send to login page
   if(decoded.exp < currTime){
     store.dispatch(logoutUser());
 

@@ -14,15 +14,17 @@ function Landing() {
     const categoryEl = useRef();
     const amountEl = useRef(); 
 
+    // Get trivia categories from opentdb API
     useEffect(() => {
+      // Clear authorization token to avoid CORS issue -- re add afterwards
       let token = axios.defaults.headers.common["Authorization"];
       delete axios.defaults.headers.common["Authorization"];
       axios.get('https://opentdb.com/api_category.php').then(res => {
+        // Set categories to data retrieved from API call
         setCategories(res.data.trivia_categories);
       })
       axios.defaults.headers.common["Authorization"] = token;
     }, [])
-    
     
     function sanitizeString(str){
       const textArea = document.createElement('textarea');
@@ -30,6 +32,7 @@ function Landing() {
       return textArea.value; 
     }
   
+    // 
     function handleSubmit(e){
       e.preventDefault();
       genFlashcards();
@@ -48,6 +51,8 @@ function Landing() {
       let token = axios.defaults.headers.common["Authorization"];
       // Delete the authorization header to allow the API call to opentdb
       delete axios.defaults.headers.common["Authorization"];
+
+      // Sends get request to opentdb API, passing in the selected category and amount as parameters
       axios.get('https://opentdb.com/api.php?amount=10', {
         params: {
           amount: amountEl.current.value,
@@ -55,6 +60,7 @@ function Landing() {
         }
       })
       .then(res => {
+        // Sanitize results, create flashcard object, and set flashcards list equal to result
         setFlashcards(res.data.results.map((questionItem, index) => {
           const answer = sanitizeString(questionItem.correct_answer);
           const options = [...questionItem.incorrect_answers.map(a => sanitizeString(a)), answer];
@@ -72,6 +78,7 @@ function Landing() {
     }
   
     return (
+      // Form to select category, # of questions, and flashcard or quiz mode
       <>
         <Navbar></Navbar>
         <form className="header" onSubmit={handleSubmit}>
@@ -83,7 +90,6 @@ function Landing() {
             })}
         </select>
         </div>
-
         <div className = "form-group">
             <label htmlFor="amount">Number Of Questions</label>
             <input type="number" id="amount" min="1" step="1" defaultValue={10} ref={amountEl}/>
@@ -109,35 +115,3 @@ function Landing() {
     );
   }
 export default Landing;
-
-
-/*
-<div>
-            <div className="col s6">
-              <Link
-                to="/register"
-                style={{
-                  width: "140px",
-                  borderRadius: "3px",
-                  letterSpacing: "1.5px"
-                }}
-                className="btn btn-large"
-              >
-                Register
-              </Link>
-            </div>
-            <div className="col s6">
-              <Link
-                to="/login"
-                style={{
-                  width: "140px",
-                  borderRadius: "3px",
-                  letterSpacing: "1.5px"
-                }}
-                className="btn btn-large"
-              >
-                Log In
-              </Link>
-        </div>
-      </div>
-      */

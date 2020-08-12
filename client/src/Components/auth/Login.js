@@ -16,15 +16,18 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    // If user is already logged in, default to main page
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
   }
 
   componentWillReceiveProps(nextProps){
+    // As above, if user is already logged in, default to main page.
     if (nextProps.auth.isAuthenticated){
       this.props.history.push("/");
     }
+    // Otherwise, check for errors.
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -32,12 +35,12 @@ class Login extends Component {
     }
   }
 
-  
 
 onChange = e => {
     this.setState( { [e.target.id]: e.target.value });
 };
 
+// On submission of login form, send data to server to attempt login
 onSubmit = e =>{
     e.preventDefault();
 
@@ -52,6 +55,7 @@ onSubmit = e =>{
 render() {
     const { errors } = this.state;
     return (
+      // Form for login
       <div className="container">
         <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8 offset-s2">
