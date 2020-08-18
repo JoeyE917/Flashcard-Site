@@ -4,4 +4,4 @@ WIP React Application that connects to the [Open Trivia API](https://opentdb.com
 Currently allows user to select a category and number of flashcards to be generated.
 
 ## To do
-- Allow user to create their own flashcards and save it
+- Allow user to create their own flashcards
