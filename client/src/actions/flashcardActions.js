@@ -14,13 +14,7 @@ export const updateScore = data => dispatch => {
     );
 }
 
-export const getScores = data => {
+export const getScores = data => dispatch => {
     console.log(data);
-    axios
-    .get(proxy + "/api/users/getScores", { params: {
-        id: data.id
-    }})
-    .then(res => {
-      return(res);
-    })
+    
 }

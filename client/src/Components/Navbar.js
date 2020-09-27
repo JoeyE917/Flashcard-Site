@@ -45,6 +45,17 @@ class Navbar extends Component {
               >
                 Stats
               </Link>
+              <Link
+                  to="/leaderboard"
+                  style={{
+                    width: "150px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px"
+                  }}
+                  className="btn btn-large"
+              >
+                Leaderboard
+              </Link>
             </div>
             <button
               style={{

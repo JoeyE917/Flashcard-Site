@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 class Quiz extends Component{
-//function FlashcardList({ flashcards }){
     constructor(props){
         super(props);
         this.flashcards = props.flashcard;
@@ -27,10 +26,12 @@ class Quiz extends Component{
     render(){
         if(this.numAnswered >= this.flashcards.length){
             let id = store.getState().auth.user.id;
-            let token = axios.defaults.headers.common["Authorization"];
-            delete axios.defaults.headers.common["Authorization"];
-            this.props.updateScore({id, correct: this.numCorrect, answered: this.numAnswered, category: this.category});
-            axios.defaults.headers.common["Authorization"] = token;
+            if(id && this.numAnswered > 0){
+                let token = axios.defaults.headers.common["Authorization"];
+                delete axios.defaults.headers.common["Authorization"];
+                this.props.updateScore({id, correct: this.numCorrect, answered: this.numAnswered, category: this.category});
+                axios.defaults.headers.common["Authorization"] = token;
+            }
             return <div className="postgame">You got {this.numCorrect} out of {this.numAnswered} correct!</div>
         }
         this.correctAnswer = this.state.flashcard.options.indexOf(this.state.flashcard.answer);
@@ -55,13 +56,6 @@ class Quiz extends Component{
         this.setFlashcard(this.flashcards[this.numAnswered]);
     }
 }
-
-/*
-Quiz.propTypes = {
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
-};
-*/
 
 const mapStateToProps = state => ({
     auth: state.auth,

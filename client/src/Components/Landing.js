@@ -82,24 +82,24 @@ function Landing() {
       <>
         <Navbar></Navbar>
         <form className="header" onSubmit={handleSubmit}>
-        <div className = "form-group">
-        <label htmlFor="category">Category</label>
-        <select id="category" ref={categoryEl}>
-            {categories.map(category => {
-            return <option value={category.id} key={category.id}>{category.name}</option>
-            })}
-        </select>
-        </div>
-        <div className = "form-group">
-            <label htmlFor="amount">Number Of Questions</label>
-            <input type="number" id="amount" min="1" step="1" defaultValue={10} ref={amountEl}/>
-        </div>
-        <div className = "form-group">
-            <button type="submit" className="generate-button">Flashcards</button>
-        </div>
-        <div className = "form-group">
-            <button onClick={handleAlternate} className="quiz-button">Quiz</button>
-        </div>
+          <div className = "form-group">
+          <label htmlFor="category">Category</label>
+          <select id="category" ref={categoryEl}>
+              {categories.map(category => {
+                return <option value={category.id} key={category.id}>{category.name}</option>
+              })}
+          </select>
+          </div>
+          <div className = "form-group">
+              <label htmlFor="amount">Number Of Questions</label>
+              <input type="number" id="amount" min="1" step="1" defaultValue={10} ref={amountEl}/>
+          </div>
+          <div className = "form-group">
+              <button type="submit" className="generate-button">Flashcards</button>
+          </div>
+          <div className = "form-group">
+              <button onClick={handleAlternate} className="quiz-button">Quiz</button>
+          </div>
         </form>
         {quizMode
         ?

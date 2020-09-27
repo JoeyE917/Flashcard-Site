@@ -51,6 +51,7 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
 
+    // Return errors if login info wasn't valid
     if(!isValid){
         return res.status(400).json(errors);
     }
@@ -58,12 +59,16 @@ router.post("/login", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
+    // Try to find a user with the provided email
     User.findOne({ email }).then(user => {
+        // If the user doesn't exist, send back error
         if(!user){
             return res.status(404).json({ emailnotfound: "Email not found"});
         }
 
+        // Check if password matches
         bcrypt.compare(password, user.password).then(isMatch => {
+            // If password matches, create JWT to sign user in.
             if(isMatch){
                 const payload = {
                     id: user.id,
@@ -84,6 +89,7 @@ router.post("/login", (req, res) => {
                     }
                 );
             } else{
+                // Otherwise, return error that password was incorrect
                 return res.status(400).json({ passwordincorrect: "Password incorrect"});
             }
         });
@@ -97,7 +103,10 @@ router.post("/updateScore", (req, res) => {
     let correct = parseInt(req.body.correct);
     let category = req.body.category;
 
+    // Find user based on id passed in from client
     User.findOne({ _id: id }).then(user => {
+        // If the user couldn't be found, return error
+        // This probably shouldn't ever happen
         if(!user){
             return res.status(404).json({ emailnotfound: "User not found"});
         }
@@ -138,6 +147,12 @@ router.get("/getScores", (req, res) => {
         }
         res.json(user.questionsAnswered);
     })
+})
+
+router.get("/getUsers", (req, res) => {
+    User.find(function(err, users){
+        res.json(users);
+    });
 })
 
 module.exports = router;

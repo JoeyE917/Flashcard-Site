@@ -54,7 +54,7 @@ class Stats extends Component{
                                         {this.state.stats[stat].answered} answered
                                     </div>
                                     <div className="correct-percent" style={{color: percent >= 75 ? "green" : percent >= 45 ? "orange" : "red"}}>
-                                        {percent}%
+                                        {percent.toFixed(2)}%
                                     </div>
                                 </div>
                             )
